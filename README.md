@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WhatsApp Ordering Bot — Sales Demo
 
-## Getting Started
+A deterministic, menu-driven WhatsApp ordering bot: a customer messages in, picks from a
+category/item menu, confirms a quantity, and gets back a branded PDF order confirmation.
+Built as a **re-skinnable template** to demo and sell to local businesses (restaurants,
+tour operators, salons, real estate) found via outreach — not a one-off for a single client.
 
-First, run the development server:
+Currently seeded as a demo restaurant ("Bella Vista Trattoria"). Re-skin for a prospect by
+editing two things, nothing else in the app needs to change:
+
+1. **Branding** — `prisma/seed.ts`, the `Business` record (name, logo text, brand colors, currency).
+2. **Menu** — `prisma/seed.ts`, the `CatalogItem` rows (category, name, description, price).
+
+Then run `npm run db:seed` again (it wipes and recreates both tables from that file).
+
+## Running locally (no Twilio account needed)
 
 ```bash
+npm install
+npm run db:seed   # only needed once, or after editing prisma/seed.ts
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Test the full conversation via the simulate endpoint — no Twilio account, no public URL:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+PHONE="+15551234567"
+curl -s -X POST localhost:3000/api/whatsapp/simulate -H "Content-Type: application/json" \
+  -d "{\"phone\":\"$PHONE\",\"body\":\"hi\"}"
+# keep posting the number each reply asks for, reusing the same $PHONE
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Each response includes `documentUrl` once the order is confirmed — open it to see the
+generated PDF. `RESTART` or `MENU` at any point starts a fresh order; `HELP` re-sends the
+current prompt.
 
-## Learn More
+Admin view (who messaged in, what they picked, the full chat thread): `/admin/enquiries`.
 
-To learn more about Next.js, take a look at the following resources:
+## Going live on real WhatsApp
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Uses Twilio's **WhatsApp Sandbox** — no business verification needed, testable within minutes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a free Twilio account → in the console open **Messaging → Try it out → Send a
+   WhatsApp message**, and follow the "join `<code>`" instructions from your own phone's WhatsApp.
+2. Set in `.env`: `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` (from the Twilio console), and
+   `NEXT_PUBLIC_BASE_URL` to a public https URL that reaches this app (e.g. `ngrok http 3000`
+   while developing, or your real deployed domain).
+3. Point the Sandbox's webhook URL at `${NEXT_PUBLIC_BASE_URL}/api/whatsapp/webhook`.
+4. Message the Sandbox number from WhatsApp — the bot's greeting should come back within seconds.
 
-## Deploy on Vercel
+None of the above is required to test locally — only to receive real messages over WhatsApp.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/lib/whatsapp/fsm.ts` — pure conversation state machine (no Prisma/Twilio imports).
+- `src/lib/whatsapp/store.ts` — the only file that touches Prisma for this feature.
+- `src/lib/whatsapp/engine.ts` — orchestrator wiring the fsm to the store; both the simulate
+  route and the real webhook call this and nothing else.
+- `src/app/api/whatsapp/simulate/route.ts` — JSON test harness (curl-testable).
+- `src/app/api/whatsapp/webhook/route.ts` — real Twilio entrypoint.
+- `src/lib/whatsapp/confirmation-pdf.ts` + `src/app/api/confirmation/[enquiryId]/route.ts` —
+  on-demand branded PDF, generated in memory (not written to disk).
+- `src/app/admin/enquiries` — list + per-conversation thread view.

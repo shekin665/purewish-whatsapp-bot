@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A single row holding the branding/config for whichever client this demo
+// is currently skinned as (name, colors, logo text, currency). Re-skin for
+// a new prospect by editing this row, not by touching any other model.
+model Business {
+  id            String  @id @default(cuid())
+  name          String
+  tagline       String?
+  logoText      String
+  colorPrimary  String // hex, e.g. "#C0392B"
+  colorAccent   String // hex
+  currencySymbol String @default("$")
+  phoneDisplay  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model CatalogItem {
+  id          String   @id @default(cuid())
+  category    String
+  name        String
+  description String?
+  price       Float
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  enquiries   Enquiry[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+}
+
+// SQLite has no native enum support in Prisma — these are plain strings,
+// constrained to a fixed set of values by the state machine in app code
+// (see src/lib/whatsapp/fsm.ts) rather than the database.
+// EnquiryState: "GREETING" | "AWAITING_CATEGORY" | "AWAITING_ITEM_SELECTION" | "AWAITING_QUANTITY" | "COMPLETED"
+// MessageDirection: "INBOUND" | "OUTBOUND"
+
+model Enquiry {
+  id               String   @id @default(cuid())
+  phone            String
+  state            String   @default("GREETING")
+  selectedCategory String?
+  matchedItem      CatalogItem? @relation(fields: [matchedItemId], references: [id])
+  matchedItemId    String?
+  quantity         Int?
+  totalPrice       Float?
+  completedAt      DateTime?
+  messages         EnquiryMessage[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([phone])
+}
+
+model EnquiryMessage {
+  id        String   @id @default(cuid())
+  enquiry   Enquiry  @relation(fields: [enquiryId], references: [id])
+  enquiryId String
+  direction String
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([enquiryId])
+}

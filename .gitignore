@@ -33,6 +33,12 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# local sqlite db
+/prisma/dev.db
+
+# local agent tooling config
+.claude/
+
 # vercel
 .vercel
 

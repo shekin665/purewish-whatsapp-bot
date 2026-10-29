@@ -1,5 +1,7 @@
 import { getBusiness } from "@/lib/business";
 
+export const instant = false;
+
 export default async function Home() {
   const business = await getBusiness();
 

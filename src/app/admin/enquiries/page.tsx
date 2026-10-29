@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
+export const instant = false;
+
 function StateBadge({ state }: { state: string }) {
   const isDone = state === "COMPLETED";
   return (

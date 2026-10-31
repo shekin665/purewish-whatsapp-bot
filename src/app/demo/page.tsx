@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Tick = "sent" | "delivered" | "read";
 type Bubble = {
@@ -58,6 +58,11 @@ export default function DemoPage() {
   const [playing, setPlaying] = useState(false);
   const [documentUrl, setDocumentUrl] = useState<string | null>(null);
   const phoneRef = useRef<string>("");
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
+  }, [bubbles, typing]);
 
   function updateLastTick(tick: Tick) {
     setBubbles((prev) => {
@@ -144,6 +149,7 @@ export default function DemoPage() {
 
           {/* Chat area */}
           <div
+            ref={chatRef}
             className="flex flex-1 flex-col gap-2 overflow-y-auto px-3 py-3"
             style={{
               backgroundColor: "#ECE5DD",

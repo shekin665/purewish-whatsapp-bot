@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { processIncomingMessage } from "@/lib/whatsapp/engine";
+import { getPublicBaseUrl } from "@/lib/base-url";
 
 // Standing test harness, not part of the real WhatsApp integration — lets
 // the whole multi-turn conversation be verified with curl, with no Twilio
@@ -14,9 +15,7 @@ export async function POST(req: NextRequest) {
   }
 
   const result = await processIncomingMessage(phone, body);
-  const documentUrl = result.documentPath
-    ? new URL(result.documentPath, req.nextUrl.origin).toString()
-    : undefined;
+  const documentUrl = result.documentPath ? `${getPublicBaseUrl(req)}${result.documentPath}` : undefined;
 
   return NextResponse.json({ replies: result.replies, documentUrl, enquiry: result.enquiry });
 }

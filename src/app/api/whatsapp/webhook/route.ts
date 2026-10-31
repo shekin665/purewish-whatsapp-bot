@@ -2,16 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import twilio from "twilio";
 import { processIncomingMessage } from "@/lib/whatsapp/engine";
 import { isTwilioSignatureValid } from "@/lib/whatsapp/verify-signature";
+import { getPublicBaseUrl } from "@/lib/base-url";
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData(); // Twilio posts x-www-form-urlencoded
   const params: Record<string, string> = {};
   for (const [k, v] of formData.entries()) params[k] = String(v);
 
-  // Prefer an explicit public-origin env var over req.nextUrl.origin — the
-  // latter can be wrong behind a tunnel/proxy, and Twilio signs the exact
-  // public URL it invoked.
-  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? req.nextUrl.origin).replace(/\/$/, "");
+  // Twilio signs the exact public URL it invoked, so this must match what
+  // Twilio actually called, not the server's internal bind address.
+  const base = getPublicBaseUrl(req);
   const url = `${base}${req.nextUrl.pathname}`;
   const signature = req.headers.get("X-Twilio-Signature");
 

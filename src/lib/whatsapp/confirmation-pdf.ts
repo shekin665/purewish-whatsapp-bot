@@ -1,4 +1,12 @@
 import PDFDocument from "pdfkit";
+import path from "path";
+
+// pdfkit's built-in Helvetica is WinAnsi-only and silently mangles ₹ (and
+// other non-Latin-1 glyphs) into garbage characters. Noto Sans is bundled
+// so currency symbols — ₹ especially, since every current client is in
+// India — render correctly both locally and on Render's Linux container.
+const FONT_REGULAR = path.join(process.cwd(), "src/assets/fonts/NotoSans-Regular.ttf");
+const FONT_BOLD = path.join(process.cwd(), "src/assets/fonts/NotoSans-Bold.ttf");
 
 type ConfirmationData = {
   business: { name: string; logoText: string; colorPrimary: string; colorAccent: string; currencySymbol: string };
@@ -36,22 +44,22 @@ function drawHeader(doc: PDFKit.PDFDocument, { business }: ConfirmationData) {
   doc
     .fillColor("#ffffff")
     .fontSize(22)
-    .font("Helvetica-Bold")
+    .font(FONT_BOLD)
     .text(business.logoText.toUpperCase(), 50, 35);
   doc
     .fontSize(10)
-    .font("Helvetica")
+    .font(FONT_REGULAR)
     .text(business.name, 50, 65);
   doc
     .fontSize(16)
-    .font("Helvetica-Bold")
+    .font(FONT_BOLD)
     .text("Order Confirmation", 0, 45, { align: "right", width: doc.page.width - 50 });
   doc.y = 140;
 }
 
 function drawSummaryBox(doc: PDFKit.PDFDocument, { enquiry, item, business }: ConfirmationData) {
   const startY = doc.y;
-  doc.fillColor("#000000").font("Helvetica-Bold").fontSize(12).text("Order Summary", 50, startY);
+  doc.fillColor("#000000").font(FONT_BOLD).fontSize(12).text("Order Summary", 50, startY);
   doc.moveDown(0.5);
 
   const rows: [string, string][] = [
@@ -70,8 +78,8 @@ function drawSummaryBox(doc: PDFKit.PDFDocument, { enquiry, item, business }: Co
   const valueX = 220;
   let y = doc.y + 8;
   for (const [label, value] of rows) {
-    doc.font("Helvetica").fontSize(10).fillColor("#555555").text(label, labelX, y, { width: 150 });
-    doc.font("Helvetica-Bold").fontSize(10).fillColor("#000000").text(value, valueX, y, { width: 320 });
+    doc.font(FONT_REGULAR).fontSize(10).fillColor("#555555").text(label, labelX, y, { width: 150 });
+    doc.font(FONT_BOLD).fontSize(10).fillColor("#000000").text(value, valueX, y, { width: 320 });
     y += 22;
   }
   doc.y = y + 10;
@@ -79,16 +87,16 @@ function drawSummaryBox(doc: PDFKit.PDFDocument, { enquiry, item, business }: Co
 
 function drawDetails(doc: PDFKit.PDFDocument, { item, business }: ConfirmationData) {
   if (!item?.description) return;
-  doc.font("Helvetica-Bold").fontSize(12).fillColor(business.colorAccent).text("Details", 50, doc.y);
+  doc.font(FONT_BOLD).fontSize(12).fillColor(business.colorAccent).text("Details", 50, doc.y);
   doc.moveDown(0.4);
-  doc.font("Helvetica").fontSize(10).fillColor("#333333").text(item.description, 50, doc.y, { width: 495 });
+  doc.font(FONT_REGULAR).fontSize(10).fillColor("#333333").text(item.description, 50, doc.y, { width: 495 });
   doc.moveDown(1);
 }
 
 function drawFooter(doc: PDFKit.PDFDocument, { enquiry, business }: ConfirmationData) {
   const y = doc.page.height - 80;
   doc
-    .font("Helvetica")
+    .font(FONT_REGULAR)
     .fontSize(8)
     .fillColor("#888888")
     .text(`Enquiry ${enquiry.id} · ${business.name} will follow up to confirm payment and delivery/pickup details.`, 50, y, {

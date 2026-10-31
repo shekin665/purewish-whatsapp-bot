@@ -6,41 +6,87 @@ Pricing — two tiers, since you have zero case studies yet and need fast first 
 
 **Founding client offer (first 10 clients only):**
 - Setup: ₹0 (waived — removes the only real objection to trying it)
-- Monthly: ₹999/month for the first 3 months, then ₹1,499/month after
-- 14-day free trial before the first charge — they can cancel with zero cost if it's not working
+- Monthly: ₹1,800/month for the first 3 months, then ₹3,000/month from month 4 onward
+- 8-day free trial before the first charge — they can cancel with zero cost if it's not working
 - In exchange: ask for a short testimonial/review once they've used it for 2 weeks (this is what sells the next 10 clients)
 
 **Standard pricing (once you have 5-10 paying/testimonial clients):**
 - Setup: ₹1,999 one-time (menu loaded, branding, number connected)
-- Monthly: ₹1,499/month flat (unlimited orders, PDF confirmations, admin dashboard)
+- Monthly: ₹3,000/month flat (unlimited orders, PDF confirmations, admin dashboard)
 
 Quote the founding-client offer on every call until you hit 10 signups, then switch the script to standard pricing.
 
-## Cold call script
+## Cold call script (Tanglish — what to actually say)
 
-**Opening (10 sec):**
-"Vanakkam! Naan Shekin Isaac, Purewish-la irundhu. Neenga restaurant business pathi oru 2 minute pேசலाம்? [Hi, this is Shekin Isaac from Purewish — do you have 2 minutes about your restaurant?]"
+**Opening:**
+"Vanakkam sir/madam! Naan Shekin Isaac pேசுறேன், Purewish-la irundhu. Neenga konjam நேரம் பேசலாமா, ungal restaurant business pathi?"
+*(Hi, this is Shekin Isaac from Purewish. Can we talk for a bit about your restaurant business?)*
+
+If busy: *"Paravaa illai sir, rendu நிமிஷத்துல mudichிடுவேன்."* (No problem, I'll finish in 2 minutes.)
 
 **Hook:**
-"Nowadays a lot of customers try to order on WhatsApp but you have to pick up every call or reply manually, right? I built a WhatsApp bot that takes the order automatically — customer messages, picks from your menu, confirms quantity, and gets a bill/confirmation PDF instantly. No app, no training needed, works on the WhatsApp number you already use."
+"Sir, ippo customers lot of per WhatsApp-la order pண்ணுறாங்க illa? Aana neenga ovvoru message-kkum reply pண்ண வேண்டியிருக்கும், illa phone-la pேசணும். Naan ஒரு WhatsApp bot build pண்ணியிருக்கேன் — customer message pண்ணினா, automatic-a menu காட்டும், enna venumnu kேட்கும், order confirm pண்ணி, bill PDF-aa anuppிடும். Neenga ஒரு call கூட pick pண்ண வேண்டாம்."
+*(A lot of customers try to order on WhatsApp but you have to reply to every message or pick up the phone. I built a WhatsApp bot — customer messages in, it shows the menu, confirms the order, sends a bill PDF. You don't pick up a single call.)*
 
 **Qualify:**
-"Do you get WhatsApp or phone orders already?" → if yes: "This is built exactly for that — saves your staff from answering every call."
+"Neenga already WhatsApp-la order வாங்குறீங்களா?" → if yes: *"Appadina idhu ungalukku perfect match — staff ovvoru call-um pick pண்ண வேண்டாம்."*
+
+**Offer the demo:**
+"Naan ஒரு short video anuppலாமா WhatsApp-la, eppadi work pண்ணும்-nu kaattறேன்? Rendu நிமிஷம் தான் paakka."
 
 **If they ask price:**
-"Right now I'm onboarding the first 10 restaurants for free — no setup cost, and the first 3 months are ₹999/month instead of ₹1,499. You try it free for 14 days first, cancel anytime with zero cost. All I ask is a quick review once you've used it a couple weeks."
+"Ippo naan first 10 restaurants-kku free-aa kudுக்குறேன் — setup cost onnum illai. Mudhal 3 maasam ₹1,800 per month dhaan, appuram 4th month-la irundhu ₹3,000. 8 naal free trial, edhuvum payment pண்ண வேண்டாம் first-la. Trial முடிஞ்சதுக்கு apram correct-aa irundha continue pண்ணலாம், illana cancel pண்ணலாம் — edhuvume cost illai. Naan kேட்பадு ஒரே ஒரு thing — rendu week use pண்ணினதுக்கு apram ஒரு chinna review mattum podunga."
 
-**Offer:**
-"I can show you a working demo — takes 2 minutes over a call or I can send you a short video on WhatsApp right now. Interested?"
+**Close — interested:**
+"Super sir! Ungal WhatsApp number sொல்லுங்க, naan indha ore நாளைக்கு live demo link anuppறேன், neengale try pண்ணலாம்."
+→ get their WhatsApp number, send the demo GIF (below) same day.
 
-**If yes:** Get their WhatsApp number (if different from business line), say "I'll message you within the day with a live demo you can try yourself, no cost to look."
-**If hesitant:** "No pressure — I'll just send a 1-minute video, you can watch whenever," then send the recorded demo (see below) to their number via regular WhatsApp message.
+**Close — hesitant:**
+"Paravaalla sir, pressure illai. Naan ஒரு 1-minute video mattum anuppறேன், free-aa paarthுடுங்க, pidichα apram mattum sollunga."
+→ send the demo GIF to their number via regular WhatsApp.
 
-**If not interested:** Thank them, mark "Called - not interested" in the tracker, move on.
+**Close — not interested:**
+"Sari sir, ungal time-kku thanks. Future-la venumna naan contact pண்ணறேன்."
+→ mark "Called - not interested" in Airtable, move on.
+
+## Cold call script (English — for leads who'd rather be pitched in English)
+
+**Opening:**
+"Hi, this is Shekin Isaac calling from Purewish. Do you have a couple of minutes to talk about your restaurant?"
+
+If busy: "No problem — I'll keep it to two minutes."
+
+**Hook:**
+"A lot of customers try to order through WhatsApp these days, but you end up having to reply to every message, or pick up the phone yourself, right? I've built a WhatsApp bot that takes the order automatically — the customer messages in, it shows your menu, confirms what they want, and sends back a bill as a PDF. You don't have to pick up a single call for it."
+
+**Qualify:**
+"Do you already get orders over WhatsApp or phone?" → if yes: "Then this is built exactly for that — it takes the load off your staff answering every call."
+
+**Offer the demo:**
+"I can send you a short video on WhatsApp showing exactly how it works — takes about two minutes to watch. Want me to send it?"
+
+**If they ask price:**
+"Right now I'm onboarding the first 10 restaurants for free — no setup cost. The first 3 months are ₹1,800 a month, then ₹3,000 a month from the 4th month onward. You get an 8-day free trial before anything is charged — if it's not working for you, cancel with zero cost. The only thing I ask in return is a short review once you've used it for about two weeks."
+
+**Close — interested:**
+"Great! Can I get your WhatsApp number? I'll send you a live demo link today so you can try it yourself."
+→ get their WhatsApp number, send the demo GIF (below) same day.
+
+**Close — hesitant:**
+"No pressure at all — I'll just send over a 1-minute video, watch it whenever, and let me know only if you like what you see."
+→ send the demo GIF to their number via regular WhatsApp.
+
+**Close — not interested:**
+"No worries, thanks for your time. I'll reach out again down the line in case it's useful."
+→ mark "Called - not interested" in Airtable, move on.
 
 ## Follow-up WhatsApp message (send manually from your own WhatsApp, after a call or as cold first touch)
 
-> Vanakkam [Restaurant Name]! This is Shekin Isaac from Purewish. I help restaurants auto-take WhatsApp orders without you lifting the phone — customer messages, picks from menu, gets instant confirmation. Takes 2 min to try. Want me to set up a live demo number for you to test? No cost to look. 🙂
+**Tanglish:**
+> Vanakkam [Restaurant Name]! Naan Shekin Isaac, Purewish-la irundhu. Neenga WhatsApp order automatic-aa edுக்கிறதுக்கு help pண்ணுறேன் — customer message pண்ணினா menu kaatti, order confirm pண்ணி, bill anuppிடும். Rendu நிமிஷத்துல try pண்ணலாம். Live demo number setup pண்ணலாமா? Paakka edhuvum cost illai. 🙂
+
+**English:**
+> Hi [Restaurant Name]! This is Shekin Isaac from Purewish. I help restaurants auto-take WhatsApp orders without you lifting the phone — customer messages in, picks from the menu, gets an instant confirmation. Takes 2 minutes to try. Want me to set up a live demo number for you to test? No cost to look. 🙂
 
 ## Demo video (ready to send — no hosting needed)
 

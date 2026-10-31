@@ -4,30 +4,37 @@ const prisma = new PrismaClient();
 
 // Sample restaurant catalog — swap this out (and the Business row below) to
 // re-skin the demo for a real prospect. Nothing else in the app needs to change.
+//
+// Currently skinned for: Leaf Veg Restaurant, Tiruvannamalai (live prospect
+// demo — leafhotel.in). Pure veg, South Indian / North Indian / Continental,
+// matching their own site's described cuisine mix.
 async function main() {
   await prisma.business.deleteMany();
   await prisma.business.create({
     data: {
-      name: "Bella Vista Trattoria",
-      tagline: "Family-run Italian kitchen since 1998",
-      logoText: "BV",
-      colorPrimary: "#C0392B",
-      colorAccent: "#2C3E50",
-      currencySymbol: "$",
-      phoneDisplay: "+1 (555) 019-2834",
+      name: "Leaf Veg Restaurant",
+      tagline: "Pure vegetarian multi-cuisine dining — South Indian, North Indian & Continental",
+      logoText: "LV",
+      colorPrimary: "#2E7D32",
+      colorAccent: "#D4A017",
+      currencySymbol: "₹",
+      phoneDisplay: "+91 93639 44474",
     },
   });
 
   await prisma.catalogItem.deleteMany();
   await prisma.catalogItem.createMany({
     data: [
-      { category: "Starters", name: "Garlic Bread", description: "Toasted ciabatta, roasted garlic butter, parsley.", price: 6.5, sortOrder: 1 },
-      { category: "Starters", name: "Bruschetta", description: "Grilled bread, vine tomatoes, basil, olive oil.", price: 7.5, sortOrder: 2 },
-      { category: "Pizza", name: "Margherita", description: "San Marzano tomato, fresh mozzarella, basil.", price: 14, sortOrder: 1 },
-      { category: "Pizza", name: "Pepperoni", description: "Tomato, mozzarella, spicy pepperoni.", price: 16, sortOrder: 2 },
-      { category: "Pasta", name: "Spaghetti Carbonara", description: "Guanciale, egg, pecorino, black pepper.", price: 15.5, sortOrder: 1 },
-      { category: "Pasta", name: "Lasagna", description: "Layered pasta, slow-cooked ragu, béchamel.", price: 16.5, sortOrder: 2 },
-      { category: "Dessert", name: "Tiramisu", description: "Espresso-soaked ladyfingers, mascarpone cream.", price: 7, sortOrder: 1 },
+      { category: "Breakfast", name: "Masala Dosa", description: "Crispy rice & lentil crepe, spiced potato filling, served with sambar and chutney.", price: 70, sortOrder: 1 },
+      { category: "Breakfast", name: "Idli Sambar", description: "Steamed rice cakes with lentil sambar and coconut chutney.", price: 60, sortOrder: 2 },
+      { category: "Continental", name: "Veg Grilled Sandwich", description: "Toasted sandwich, mixed vegetables, cheese, herb butter.", price: 120, sortOrder: 1 },
+      { category: "Continental", name: "Paneer Tikka Pizza", description: "Wood-fired pizza, tandoori paneer, bell peppers, onion.", price: 220, sortOrder: 2 },
+      { category: "Desserts", name: "Gulab Jamun", description: "Warm milk-solid dumplings in rose-cardamom syrup, 2 pieces.", price: 60, sortOrder: 1 },
+      { category: "Desserts", name: "Fruit Custard", description: "Chilled seasonal fruits in vanilla custard.", price: 70, sortOrder: 2 },
+      { category: "North Indian", name: "Paneer Butter Masala", description: "Cottage cheese in a creamy tomato-butter gravy, mild spice.", price: 180, sortOrder: 1 },
+      { category: "North Indian", name: "Dal Makhani", description: "Slow-cooked black lentils, butter and cream, finished overnight.", price: 150, sortOrder: 2 },
+      { category: "South Indian", name: "Sambar Rice", description: "Steamed rice tossed with lentil sambar, ghee and papad.", price: 90, sortOrder: 1 },
+      { category: "South Indian", name: "Curd Rice", description: "Tempered yogurt rice with mustard seeds, curry leaves and pomegranate.", price: 80, sortOrder: 2 },
     ],
   });
 }

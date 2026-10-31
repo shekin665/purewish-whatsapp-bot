@@ -10,10 +10,10 @@ type Bubble = {
   tick?: Tick;
 };
 
-const SCRIPT = ["hi", "3", "1", "2"];
-const BUSINESS_NAME = "Bella Vista Trattoria";
-const BUSINESS_INITIALS = "BV";
-const BUSINESS_AVATAR_COLOR = "#C0392B";
+const SCRIPT = ["hi", "4", "1", "2"]; // Greeting -> North Indian -> Paneer Butter Masala -> qty 2
+const BUSINESS_NAME = "Leaf Veg Restaurant";
+const BUSINESS_INITIALS = "LV";
+const BUSINESS_AVATAR_COLOR = "#2E7D32";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -206,14 +206,20 @@ export default function DemoPage() {
       </button>
 
       {documentUrl && (
-        <a
-          href={documentUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full border border-green-600 px-5 py-2 text-center font-medium text-green-700"
-        >
-          📄 Open the auto-generated PDF confirmation
-        </a>
+        <div className="message-in flex w-[390px] flex-col gap-2">
+          <p className="text-center text-sm font-medium text-zinc-600">📄 Auto-generated bill, sent back instantly</p>
+          <div className="overflow-hidden rounded-xl border border-zinc-300 bg-white shadow-lg">
+            <iframe src={documentUrl} className="h-[480px] w-full" title="Order confirmation PDF" />
+          </div>
+          <a
+            href={documentUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mx-auto rounded-full border border-green-600 px-5 py-2 text-center text-sm font-medium text-green-700"
+          >
+            Open full PDF →
+          </a>
+        </div>
       )}
     </div>
   );
